@@ -1,0 +1,16 @@
+.left-panel {
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 50%;
+}
+.right-panel {
+  background-color: whitesmoke;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 50%;
+}

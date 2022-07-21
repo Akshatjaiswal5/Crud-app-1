@@ -1,0 +1,10 @@
+.card {
+  background-color: whitesmoke;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 47vw;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 3fr 3fr 1fr 1fr;
+  gap: 1rem;
+}
