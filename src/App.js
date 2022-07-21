@@ -24,23 +24,41 @@ const INIT_DATA = [
     contact: "8867566564",
   },
 ];
+
 const App = () => {
   const [contactList, setContactList] = useState(INIT_DATA);
-  const [editingMode, setEditingMode] = useState(false);
-  const [editingContact, setEditingContact] = useState(null);
+  const [currContact, setCurrContact] = useState({
+    key: "",
+    name: "",
+    contact: "",
+  });
 
   const addContact = (cnt) => {
-    setContactList((contactList) => [...contactList, cnt]);
+    const newContact = {
+      ...cnt,
+      key: Math.random().toString(36).substring(2, 11),
+    };
+    setContactList((contactList) => [...contactList, newContact]);
   };
   const editContact = (cnt) => {
+    setCurrContact({
+      key: cnt.key,
+      name: cnt.name,
+      contact: cnt.contact,
+    });
+  };
+  const updateContact = (cnt) => {
     setContactList((contactList) => {
       return contactList.map((contact) => {
         if (contact.key === cnt.key) return cnt;
         else return contact;
       });
     });
-    setEditingContact(null);
-    setEditingMode(false);
+    setCurrContact({
+      key: "",
+      name: "",
+      contact: "",
+    });
   };
   const deleteContact = (cnt) => {
     setContactList((contactList) => {
@@ -58,8 +76,7 @@ const App = () => {
             <Card
               key={contact.key}
               contact={contact}
-              setEditingMode={setEditingMode}
-              setEditingContact={setEditingContact}
+              editContact={editContact}
               deleteContact={deleteContact}
             />
           );
@@ -67,9 +84,8 @@ const App = () => {
       </div>
       <div className="right-panel">
         <Form
-          editingMode={editingMode}
-          editingContact={editingContact}
-          onFinish={editingMode ? editContact : addContact}
+          currContact={currContact}
+          onFinish={currContact.key !== "" ? updateContact : addContact}
         />
       </div>
     </>

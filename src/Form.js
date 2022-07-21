@@ -1,35 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
 
-const Form = ({ editingMode, editingContact, onFinish }) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredContact, setEnteredContact] = useState("");
+const Form = ({ currContact, onFinish }) => {
+  const [enteredContact, setEnteredContact] = useState({
+    key: "",
+    name: "",
+    contact: "",
+  });
 
   useEffect(() => {
-    setEnteredName(editingMode ? editingContact.name : "");
-    setEnteredContact(editingMode ? editingContact.contact : "");
-  }, [editingMode, editingContact]);
+    setEnteredContact({
+      key: currContact.key,
+      name: currContact.name,
+      contact: currContact.contact,
+    });
+  }, [currContact]);
 
   const nameChangeHandler = (e) => {
-    setEnteredName(e.target.value);
+    setEnteredContact({ ...enteredContact, name: e.target.value });
   };
   const contactChangeHandler = (e) => {
-    setEnteredContact(e.target.value);
+    setEnteredContact({ ...enteredContact, contact: e.target.value });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (enteredName.trim() === "" || enteredContact.trim() === "") return;
-    const cnt = {
-      key: editingMode
-        ? editingContact.key
-        : Math.random().toString(36).substring(2, 11),
-      name: enteredName.trim(),
-      contact: enteredContact.trim(),
-    };
-    onFinish(cnt);
-    setEnteredName("");
-    setEnteredContact("");
+    if (
+      enteredContact.name.trim() === "" ||
+      enteredContact.contact.trim() === ""
+    )
+      return;
+
+    onFinish(enteredContact);
+    setEnteredContact({
+      key: "",
+      name: "",
+      contact: "",
+    });
   };
 
   return (
@@ -40,7 +47,7 @@ const Form = ({ editingMode, editingContact, onFinish }) => {
           type="text"
           name="name"
           id="name"
-          value={enteredName}
+          value={enteredContact.name}
           onChange={nameChangeHandler}
         />
       </div>
@@ -50,12 +57,14 @@ const Form = ({ editingMode, editingContact, onFinish }) => {
           type="text"
           name="contact"
           id="contact"
-          value={enteredContact}
+          value={enteredContact.contact}
           onChange={contactChangeHandler}
         />
       </div>
       <div className="form-elem">
-        <button type="submit">{editingMode ? "Update" : "Add"}</button>
+        <button type="submit">
+          {currContact.key !== "" ? "Update" : "Add"}
+        </button>
       </div>
     </form>
   );

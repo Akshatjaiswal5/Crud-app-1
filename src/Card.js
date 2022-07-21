@@ -1,18 +1,14 @@
 import React from "react";
 import "./Card.css";
 
-const Card = (
-  { contact, setEditingMode, setEditingContact, deleteContact },
-  key
-) => {
+const Card = ({ contact, editContact, deleteContact }, key) => {
   return (
     <div className="card" key={key}>
       <label>Name: {contact.name}</label>
       <label>Contact: {contact.contact}</label>
       <button
         onClick={(e) => {
-          setEditingMode(true);
-          setEditingContact(contact);
+          editContact(contact);
         }}
       >
         Edit
