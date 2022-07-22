@@ -1,7 +1,26 @@
 import React from "react";
 import "./Card.css";
 
-const Card = ({ contact, editContact, deleteContact }, key) => {
+type Contact = {
+  key: string;
+  name: string;
+  contact: string;
+};
+
+type ContactCRUDHandler = (cnt: Contact) => void;
+
+const Card = (
+  {
+    contact,
+    editContact,
+    deleteContact,
+  }: {
+    contact: Contact;
+    editContact: ContactCRUDHandler;
+    deleteContact: ContactCRUDHandler;
+  },
+  key: string
+) => {
   return (
     <div className="card" key={key}>
       <label>Name: {contact.name}</label>

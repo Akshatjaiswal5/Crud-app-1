@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
 
-const Form = ({ currContact, onFinish }) => {
+type Contact = {
+  key: string;
+  name: string;
+  contact: string;
+};
+
+type ContactCRUDHandler = (cnt: Contact) => void;
+
+const Form = ({
+  currContact,
+  onFinish,
+}: {
+  currContact: Contact;
+  onFinish: ContactCRUDHandler;
+}) => {
   const [enteredContact, setEnteredContact] = useState({
     key: "",
     name: "",
@@ -16,14 +30,14 @@ const Form = ({ currContact, onFinish }) => {
     });
   }, [currContact]);
 
-  const nameChangeHandler = (e) => {
+  const nameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredContact({ ...enteredContact, name: e.target.value });
   };
-  const contactChangeHandler = (e) => {
+  const contactChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredContact({ ...enteredContact, contact: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     if (
       enteredContact.name.trim() === "" ||

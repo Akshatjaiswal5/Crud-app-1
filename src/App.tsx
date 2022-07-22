@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import "./App.css";
 import Card from "./Card";
 import Form from "./Form";
-const INIT_DATA = [
+
+type Contact = {
+  key: string;
+  name: string;
+  contact: string;
+};
+
+const INIT_DATA: Contact[] = [
   {
     key: "akj9apjrm2",
     name: "Akshat Jaiswal",
@@ -33,21 +40,21 @@ const App = () => {
     contact: "",
   });
 
-  const addContact = (cnt) => {
+  const addContact = (cnt: Contact) => {
     const newContact = {
       ...cnt,
       key: Math.random().toString(36).substring(2, 11),
     };
     setContactList((contactList) => [...contactList, newContact]);
   };
-  const editContact = (cnt) => {
+  const editContact = (cnt: Contact) => {
     setCurrContact({
       key: cnt.key,
       name: cnt.name,
       contact: cnt.contact,
     });
   };
-  const updateContact = (cnt) => {
+  const updateContact = (cnt: Contact) => {
     setContactList((contactList) => {
       return contactList.map((contact) => {
         if (contact.key === cnt.key) return cnt;
@@ -60,7 +67,7 @@ const App = () => {
       contact: "",
     });
   };
-  const deleteContact = (cnt) => {
+  const deleteContact = (cnt: Contact) => {
     setContactList((contactList) => {
       return contactList.filter((contact) => {
         return contact.key !== cnt.key;
