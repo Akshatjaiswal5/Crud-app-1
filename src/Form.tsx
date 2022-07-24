@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
-
-type Contact = {
-  key: string;
-  name: string;
-  contact: string;
-};
+import Contact from "./Contact";
 
 type ContactCRUDHandler = (cnt: Contact) => void;
 
@@ -16,7 +11,7 @@ const Form = ({
   currContact: Contact;
   onFinish: ContactCRUDHandler;
 }) => {
-  const [enteredContact, setEnteredContact] = useState({
+  const [enteredContact, setEnteredContact] = useState<Contact>({
     key: "",
     name: "",
     contact: "",
@@ -24,9 +19,7 @@ const Form = ({
 
   useEffect(() => {
     setEnteredContact({
-      key: currContact.key,
-      name: currContact.name,
-      contact: currContact.contact,
+      ...currContact,
     });
   }, [currContact]);
 

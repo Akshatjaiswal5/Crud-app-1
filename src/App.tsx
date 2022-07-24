@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Card from "./Card";
 import Form from "./Form";
-
-type Contact = {
-  key: string;
-  name: string;
-  contact: string;
-};
+import Contact from "./Contact";
 
 const INIT_DATA: Contact[] = [
   {
@@ -33,15 +28,15 @@ const INIT_DATA: Contact[] = [
 ];
 
 const App = () => {
-  const [contactList, setContactList] = useState(INIT_DATA);
-  const [currContact, setCurrContact] = useState({
+  const [contactList, setContactList] = useState<Contact[]>(INIT_DATA);
+  const [currContact, setCurrContact] = useState<Contact>({
     key: "",
     name: "",
     contact: "",
   });
 
   const addContact = (cnt: Contact) => {
-    const newContact = {
+    const newContact: Contact = {
       ...cnt,
       key: Math.random().toString(36).substring(2, 11),
     };
@@ -49,9 +44,7 @@ const App = () => {
   };
   const editContact = (cnt: Contact) => {
     setCurrContact({
-      key: cnt.key,
-      name: cnt.name,
-      contact: cnt.contact,
+      ...cnt,
     });
   };
   const updateContact = (cnt: Contact) => {

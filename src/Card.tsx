@@ -1,11 +1,6 @@
 import React from "react";
 import "./Card.css";
-
-type Contact = {
-  key: string;
-  name: string;
-  contact: string;
-};
+import Contact from "./Contact";
 
 type ContactCRUDHandler = (cnt: Contact) => void;
 
