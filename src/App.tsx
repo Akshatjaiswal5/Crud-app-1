@@ -3,8 +3,8 @@ import "./App.css";
 import ContactCard from "./ContactCard";
 import Form from "./Form";
 import Contact from "./Contact";
-import { ThemeProvider } from "@material-ui/core";
 import theme from "./Theme";
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
 
 const INIT_DATA: Contact[] = [
   {
@@ -72,6 +72,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <div className="left-panel">
         {contactList.map((contact) => {
           return (
