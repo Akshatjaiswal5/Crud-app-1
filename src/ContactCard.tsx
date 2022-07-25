@@ -1,10 +1,11 @@
 import React from "react";
-import "./Card.css";
+import "./ContactCard.css";
 import Contact from "./Contact";
+import { Button, Card } from "@material-ui/core";
 
 type ContactCRUDHandler = (cnt: Contact) => void;
 
-const Card = (
+const ContactCard = (
   {
     contact,
     editContact,
@@ -17,25 +18,25 @@ const Card = (
   key: string
 ) => {
   return (
-    <div className="card" key={key}>
+    <Card className="card" key={key}>
       <label>Name: {contact.name}</label>
       <label>Contact: {contact.contact}</label>
-      <button
+      <Button
         onClick={(e) => {
           editContact(contact);
         }}
       >
         Edit
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={(e) => {
           deleteContact(contact);
         }}
       >
         Delete
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 };
 
-export default Card;
+export default ContactCard;

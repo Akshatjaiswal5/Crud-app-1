@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
 import Contact from "./Contact";
+import { Button, Input, InputLabel, FormControl } from "@material-ui/core";
 
 type ContactCRUDHandler = (cnt: Contact) => void;
 
@@ -48,31 +49,31 @@ const Form = ({
 
   return (
     <form onSubmit={submitHandler} className="form">
-      <div className="form-elem">
-        <label htmlFor="name">Name:</label>
-        <input
+      <FormControl className="form-elem">
+        <InputLabel htmlFor="name">Name:</InputLabel>
+        <Input
           type="text"
           name="name"
           id="name"
           value={enteredContact.name}
           onChange={nameChangeHandler}
         />
-      </div>
-      <div className="form-elem">
-        <label htmlFor="contact">Contact:</label>
-        <input
+      </FormControl>
+      <FormControl className="form-elem">
+        <InputLabel htmlFor="contact">Contact:</InputLabel>
+        <Input
           type="text"
           name="contact"
           id="contact"
           value={enteredContact.contact}
           onChange={contactChangeHandler}
         />
-      </div>
-      <div className="form-elem">
-        <button type="submit">
+      </FormControl>
+      <FormControl className="form-elem">
+        <Button type="submit" variant="contained" color="primary">
           {currContact.key !== "" ? "Update" : "Add"}
-        </button>
-      </div>
+        </Button>
+      </FormControl>
     </form>
   );
 };

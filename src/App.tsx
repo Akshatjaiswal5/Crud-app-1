@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import Card from "./Card";
+import ContactCard from "./ContactCard";
 import Form from "./Form";
 import Contact from "./Contact";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./Theme";
 
 const INIT_DATA: Contact[] = [
   {
@@ -69,11 +71,11 @@ const App = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <div className="left-panel">
         {contactList.map((contact) => {
           return (
-            <Card
+            <ContactCard
               key={contact.key}
               contact={contact}
               editContact={editContact}
@@ -88,7 +90,7 @@ const App = () => {
           onFinish={currContact.key !== "" ? updateContact : addContact}
         />
       </div>
-    </>
+    </ThemeProvider>
   );
 };
 
