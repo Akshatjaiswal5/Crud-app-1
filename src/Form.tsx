@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
-import Contact from "./Contact";
+import { Contact, ContactState } from "./ContactTypes";
+import { useSelector, useDispatch } from "react-redux";
 
-type ContactCRUDHandler = (cnt: Contact) => void;
+const Form = () => {
+  const currContact = useSelector<ContactState, Contact>(
+    (state) => state.currContact
+  );
 
-const Form = ({
-  currContact,
-  onFinish,
-}: {
-  currContact: Contact;
-  onFinish: ContactCRUDHandler;
-}) => {
   const [enteredContact, setEnteredContact] = useState<Contact>({
     key: "",
     name: "",
     contact: "",
   });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setEnteredContact({
@@ -38,7 +37,7 @@ const Form = ({
     )
       return;
 
-    onFinish(enteredContact);
+    dispatch({ type: "UPDATE_CONTACTLIST", payload: enteredContact });
     setEnteredContact({
       key: "",
       name: "",

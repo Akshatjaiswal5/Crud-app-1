@@ -1,39 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./Card.css";
-import Contact from "./Contact";
+import { Contact } from "./ContactTypes";
 
-type ContactCRUDHandler = (cnt: Contact) => void;
+const Card = ({ contact }: { contact: Contact }, key: string) => {
+  const dispatch = useDispatch();
+  const editContact = () => {
+    dispatch({ type: "EDIT_CONTACT", payload: contact });
+  };
+  const deleteContact = () => {
+    dispatch({ type: "DELETE_CONTACT", payload: contact });
+  };
 
-const Card = (
-  {
-    contact,
-    editContact,
-    deleteContact,
-  }: {
-    contact: Contact;
-    editContact: ContactCRUDHandler;
-    deleteContact: ContactCRUDHandler;
-  },
-  key: string
-) => {
   return (
     <div className="card" key={key}>
       <label>Name: {contact.name}</label>
       <label>Contact: {contact.contact}</label>
-      <button
-        onClick={(e) => {
-          editContact(contact);
-        }}
-      >
-        Edit
-      </button>
-      <button
-        onClick={(e) => {
-          deleteContact(contact);
-        }}
-      >
-        Delete
-      </button>
+      <button onClick={editContact}>Edit</button>
+      <button onClick={deleteContact}>Delete</button>
     </div>
   );
 };
