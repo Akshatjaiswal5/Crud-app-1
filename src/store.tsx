@@ -1,7 +1,7 @@
-import { legacy_createStore as createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { ContactState, Contact } from "./ContactTypes";
 
-const initialValues: ContactState = {
+const initialState: ContactState = {
   contactList: [
     {
       key: "akj9apjrm2",
@@ -31,45 +31,45 @@ const initialValues: ContactState = {
   },
 };
 
-const ContactStoreReducer = (state = initialValues, action: any) => {
-  const newState = { ...state };
+const ContactSlice = createSlice({
+  name: "Contacts",
+  initialState,
+  reducers: {
+    updateContactList(state, action) {
+      if (action.payload.key === "") {
+        const newContact: Contact = {
+          ...action.payload,
+          key: Math.random().toString(36).substring(2, 11),
+        };
+        state.contactList.push(newContact);
+      } else {
+        state.contactList = state.contactList.map((contact) => {
+          if (contact.key === action.payload.key) return action.payload;
+          else return contact;
+        });
 
-  if (action.type === "UPDATE_CONTACTLIST") {
-    if (action.payload.key === "") {
-      const newContact: Contact = {
-        ...action.payload,
-        key: Math.random().toString(36).substring(2, 11),
-      };
-      newState.contactList = [...state.contactList, newContact];
-    } else {
-      newState.contactList = state.contactList.map((contact) => {
-        if (contact.key === action.payload.key) return action.payload;
-        else return contact;
+        state.currContact = {
+          key: "",
+          name: "",
+          contact: "",
+        };
+      }
+    },
+    editContact(state, action) {
+      state.currContact = { ...action.payload };
+    },
+    deleteContact(state, action) {
+      state.contactList = state.contactList.filter((contact) => {
+        return contact.key !== action.payload.key;
       });
-      newState.currContact = {
-        key: "",
-        name: "",
-        contact: "",
-      };
-    }
-    return newState;
-  }
+    },
+  },
+});
 
-  if (action.type === "EDIT_CONTACT") {
-    newState.currContact = { ...action.payload };
-    return newState;
-  }
+const ContactStore = configureStore({
+  reducer: ContactSlice.reducer,
+});
 
-  if (action.type === "DELETE_CONTACT") {
-    newState.contactList = state.contactList.filter((contact) => {
-      return contact.key !== action.payload.key;
-    });
-    return newState;
-  }
-
-  return newState;
-};
-
-const ContactStore = createStore(ContactStoreReducer);
+export const ContactActions = ContactSlice.actions;
 
 export default ContactStore;

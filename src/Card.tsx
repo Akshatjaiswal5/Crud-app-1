@@ -2,14 +2,16 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import "./Card.css";
 import { Contact } from "./ContactTypes";
+import { ContactActions } from "./store";
 
 const Card = ({ contact }: { contact: Contact }, key: string) => {
   const dispatch = useDispatch();
+
   const editContact = () => {
-    dispatch({ type: "EDIT_CONTACT", payload: contact });
+    dispatch(ContactActions.editContact(contact));
   };
   const deleteContact = () => {
-    dispatch({ type: "DELETE_CONTACT", payload: contact });
+    dispatch(ContactActions.deleteContact(contact));
   };
 
   return (

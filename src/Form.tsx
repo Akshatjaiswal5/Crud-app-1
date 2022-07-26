@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Form.css";
 import { Contact, ContactState } from "./ContactTypes";
 import { useSelector, useDispatch } from "react-redux";
+import { ContactActions } from "./store";
 
 const Form = () => {
   const currContact = useSelector<ContactState, Contact>(
@@ -37,7 +38,7 @@ const Form = () => {
     )
       return;
 
-    dispatch({ type: "UPDATE_CONTACTLIST", payload: enteredContact });
+    dispatch(ContactActions.updateContactList(enteredContact));
     setEnteredContact({
       key: "",
       name: "",
