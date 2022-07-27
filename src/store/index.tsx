@@ -1,5 +1,6 @@
 import { createStore, action } from "easy-peasy";
 import { ContactState, Contact } from "../ContactTypes";
+import ContactStoreModel from "./model";
 
 const initialState: ContactState = {
   contactList: [

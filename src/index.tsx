@@ -3,10 +3,15 @@ import { StoreProvider } from "easy-peasy";
 import ContactStore from "./store";
 import "./index.css";
 import App from "./App";
+import React from "react";
+
+const StoreProviderCasted = StoreProvider as unknown as React.FC<
+  React.PropsWithChildren & StoreProvider["props"]
+>;
 
 ReactDOM.render(
-  <StoreProvider store={ContactStore}>
+  <StoreProviderCasted store={ContactStore}>
     <App />
-  </StoreProvider>,
+  </StoreProviderCasted>,
   document.getElementById("root")
 );
