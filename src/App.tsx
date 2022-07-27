@@ -2,13 +2,10 @@ import React from "react";
 import "./App.css";
 import Card from "./Card";
 import Form from "./Form";
-import { Contact, ContactState } from "./ContactTypes";
-import { useSelector } from "react-redux";
+import { useStoreState } from "./store/hooks";
 
 const App = () => {
-  const contactList = useSelector<ContactState, Contact[]>(
-    (state) => state.contactList
-  );
+  const contactList = useStoreState((state) => state.contactList);
 
   return (
     <>

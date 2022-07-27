@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { StoreProvider } from "easy-peasy";
 import ContactStore from "./store";
 import "./index.css";
 import App from "./App";
 
 ReactDOM.render(
-  <Provider store={ContactStore}>
+  <StoreProvider store={ContactStore}>
     <App />
-  </Provider>,
+  </StoreProvider>,
   document.getElementById("root")
 );

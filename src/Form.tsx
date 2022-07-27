@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
-import { Contact, ContactState } from "./ContactTypes";
-import { useSelector, useDispatch } from "react-redux";
-import { ContactActions } from "./store";
+import { Contact } from "./ContactTypes";
+import { useStoreState, useStoreActions } from "./store/hooks";
 
 const Form = () => {
-  const currContact = useSelector<ContactState, Contact>(
-    (state) => state.currContact
+  const currContact = useStoreState((state) => state.currContact);
+  const updateContactList = useStoreActions(
+    (actions) => actions.updateContactList
   );
 
   const [enteredContact, setEnteredContact] = useState<Contact>({
@@ -14,8 +14,6 @@ const Form = () => {
     name: "",
     contact: "",
   });
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setEnteredContact({
@@ -38,7 +36,7 @@ const Form = () => {
     )
       return;
 
-    dispatch(ContactActions.updateContactList(enteredContact));
+    updateContactList(enteredContact);
     setEnteredContact({
       key: "",
       name: "",

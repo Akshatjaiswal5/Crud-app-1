@@ -1,25 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import "./Card.css";
 import { Contact } from "./ContactTypes";
-import { ContactActions } from "./store";
+import { useStoreActions } from "./store/hooks";
 
 const Card = ({ contact }: { contact: Contact }, key: string) => {
-  const dispatch = useDispatch();
-
-  const editContact = () => {
-    dispatch(ContactActions.editContact(contact));
-  };
-  const deleteContact = () => {
-    dispatch(ContactActions.deleteContact(contact));
-  };
+  const deleteContact = useStoreActions((actions) => actions.deleteContact);
+  const editContact = useStoreActions((actions) => actions.editContact);
 
   return (
     <div className="card" key={key}>
       <label>Name: {contact.name}</label>
       <label>Contact: {contact.contact}</label>
-      <button onClick={editContact}>Edit</button>
-      <button onClick={deleteContact}>Delete</button>
+      <button onClick={() => editContact(contact)}>Edit</button>
+      <button onClick={() => deleteContact(contact)}>Delete</button>
     </div>
   );
 };
