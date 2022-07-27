@@ -1,79 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Form.css";
 import { Contact, ContactState } from "./ContactTypes";
 import { useSelector, useDispatch } from "react-redux";
 import { ContactActions } from "./store";
+import { ReactForm } from "react-forms";
 
 const Form = () => {
   const currContact = useSelector<ContactState, Contact>(
     (state) => state.currContact
   );
-
-  const [enteredContact, setEnteredContact] = useState<Contact>({
-    key: "",
-    name: "",
-    contact: "",
-  });
-
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setEnteredContact({
-      ...currContact,
-    });
-  }, [currContact]);
-
-  const nameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredContact({ ...enteredContact, name: e.target.value });
-  };
-  const contactChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredContact({ ...enteredContact, contact: e.target.value });
+  const submitHandler = (contact: Contact, helper: { resetForm: () => {} }) => {
+    if (contact.name.trim() === "" || contact.contact.trim() === "") return;
+    dispatch(ContactActions.updateContactList(contact));
+    helper.resetForm();
   };
 
-  const submitHandler = (e: React.FormEvent<EventTarget>) => {
-    e.preventDefault();
-    if (
-      enteredContact.name.trim() === "" ||
-      enteredContact.contact.trim() === ""
-    )
-      return;
-
-    dispatch(ContactActions.updateContactList(enteredContact));
-    setEnteredContact({
-      key: "",
-      name: "",
-      contact: "",
-    });
-  };
+  const myConfig = [
+    {
+      type: "text",
+      valueKey: "name",
+      fieldProps: { label: "Name", fullWidth: true },
+    },
+    {
+      type: "text",
+      valueKey: "contact",
+      fieldProps: { label: "Contact", fullWidth: true },
+    },
+  ];
+  const myInitialValue: Contact = { ...currContact };
 
   return (
-    <form onSubmit={submitHandler} className="form">
-      <div className="form-elem">
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={enteredContact.name}
-          onChange={nameChangeHandler}
-        />
-      </div>
-      <div className="form-elem">
-        <label htmlFor="contact">Contact:</label>
-        <input
-          type="text"
-          name="contact"
-          id="contact"
-          value={enteredContact.contact}
-          onChange={contactChangeHandler}
-        />
-      </div>
-      <div className="form-elem">
-        <button type="submit">
-          {currContact.key !== "" ? "Update" : "Add"}
-        </button>
-      </div>
-    </form>
+    <div>
+      <ReactForm
+        enableReinitialize
+        config={myConfig}
+        initialValues={myInitialValue}
+        onSubmit={submitHandler}
+        formId={""}
+        actionConfig={{ submitButtonProps: {} }}
+      />
+    </div>
   );
 };
 
