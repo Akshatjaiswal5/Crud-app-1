@@ -1,23 +1,18 @@
 import React from "react";
-import "./App.css";
-import Card from "./Card";
-import Form from "./Form";
-import { useStoreState } from "./store/hooks";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PageNotFound from "./pages/404Page";
+import ContactDetails from "./pages/ContactDetails";
+import Home from "./pages/Home";
 
 const App = () => {
-  const contactList = useStoreState((state) => state.contactList);
-
   return (
-    <>
-      <div className="left-panel">
-        {contactList.map((contact) => {
-          return <Card key={contact.key} contact={contact} />;
-        })}
-      </div>
-      <div className="right-panel">
-        <Form />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/details/:key" element={<ContactDetails />} />
+        <Route path="/*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

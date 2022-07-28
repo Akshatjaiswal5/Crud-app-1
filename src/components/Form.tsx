@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Form.css";
-import { Contact } from "./ContactTypes";
-import { useStoreState, useStoreActions } from "./store/hooks";
+import { Contact } from "../ContactTypes";
+import { useStoreState, useStoreActions } from "../store/hooks";
 
 const Form = () => {
   const currContact = useStoreState((state) => state.currContact);
