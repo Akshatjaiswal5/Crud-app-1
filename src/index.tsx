@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { StoreProvider } from "easy-peasy";
 import ContactStore from "./store";
 import "./index.css";
@@ -9,9 +9,12 @@ const StoreProviderCasted = StoreProvider as unknown as React.FC<
   React.PropsWithChildren & StoreProvider["props"]
 >;
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
+root.render(
   <StoreProviderCasted store={ContactStore}>
     <App />
-  </StoreProviderCasted>,
-  document.getElementById("root")
+  </StoreProviderCasted>
 );
