@@ -1,15 +1,16 @@
 import React from "react";
-import "./404Page.css";
 import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
   return (
-    <>
-      <Link className="home" to="/">
+    <div className="h-screen p-10">
+      <Link className="text-blue-900 text-xl ml-20" to="/">
         Home
       </Link>
-      <h1 className="warning">404- Page not found</h1>
-    </>
+      <h1 className=" block m-auto text-center font-bold text-2xl">
+        404- Page not found
+      </h1>
+    </div>
   );
 };
 
