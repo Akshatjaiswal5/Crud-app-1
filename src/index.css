@@ -1,8 +1,1 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-.card {
-  display: grid;
-  grid-template-columns: 3fr 3fr 1fr 1fr;
-}

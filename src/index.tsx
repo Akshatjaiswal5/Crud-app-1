@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { StoreProvider } from "easy-peasy";
 import ContactStore from "./store";
 import "./index.css";
+import "bulma/css/bulma.min.css";
 import App from "./App";
 import React from "react";
 

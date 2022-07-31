@@ -15,13 +15,10 @@ const ContactDetails = () => {
   if (!contact) return <PageNotFound />;
 
   return (
-    <div
-      className="grid place-items-center h-screen w-screen bg-blue-400"
-      onClick={goback}
-    >
-      <div className="flex-col text-center h-1/3 w-1/3 m-auto bg-blue-100 gap-2 rounded-lg py-8 drop-shadow-md">
-        <h1 className="font-sans font-bold mt-15 text-2xl">{contact.name}</h1>
-        <div className="mt-5 font-semibold text-md">
+    <div className=" level-item" onClick={goback}>
+      <div className="box p-6">
+        <h1 className=" is-size-3 has-text-weight-semibold">{contact.name}</h1>
+        <div className="">
           <p>+91-{contact.contact}</p>
         </div>
       </div>

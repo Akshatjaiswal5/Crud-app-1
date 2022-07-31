@@ -9,30 +9,38 @@ const Card = ({ contact }: { contact: Contact }, key: string) => {
 
   return (
     <div
-      className="p-5 drop-shadow-md font-semibold font-sans w-11/12 bg-blue-100 rounded-lg border-2 border-gray-200 backdrop-blur hover:bg-gray-100 mt-5 mx-auto card"
+      className="columns box mt-5"
       key={key}
       onClick={() => navigate("./details/" + contact.key)}
     >
-      <label>Name: {contact.name}</label>
-      <label>Contact: {contact.contact}</label>
-      <button
-        className="w-14 h-6 text-sm font-medium text-blue-700 focus:outline-none rounded-lg border border-gray-600 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-200 "
-        onClick={(e) => {
-          editContact(contact);
-          e.stopPropagation();
-        }}
-      >
-        Edit
-      </button>
-      <button
-        className="w-16 h-6 text-sm font-medium text-red-700 focus:outline-none rounded-lg border border-gray-600 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-200"
-        onClick={(e) => {
-          deleteContact(contact);
-          e.stopPropagation();
-        }}
-      >
-        Delete
-      </button>
+      <label className="column is-one-third has-text-weight-semibold">
+        Name: {contact.name}
+      </label>
+      <label className="column is-one-third has-text-weight-semibold">
+        Contact: {contact.contact}
+      </label>
+      <div className="column">
+        <button
+          className="button is-link is-rounded is-small"
+          onClick={(e) => {
+            editContact(contact);
+            e.stopPropagation();
+          }}
+        >
+          Edit
+        </button>
+      </div>
+      <div className="column">
+        <button
+          className="button is-danger is-rounded is-small"
+          onClick={(e) => {
+            deleteContact(contact);
+            e.stopPropagation();
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const PageNotFound = () => {
   return (
-    <div className="h-screen p-10">
-      <Link className="text-blue-900 text-xl ml-20" to="/">
+    <div className="level-item">
+      <Link className="mr-5" to="/">
         Home
       </Link>
-      <h1 className=" block m-auto text-center font-bold text-2xl">
+      <h1 className=" is-size-3 has-text-weight-semibold">
         404- Page not found
       </h1>
     </div>
